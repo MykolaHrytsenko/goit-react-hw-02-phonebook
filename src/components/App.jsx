@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-import { nanoid } from 'nanoid';
 
 export class App extends Component {
   state = {
@@ -20,18 +19,13 @@ export class App extends Component {
   };
 
   repeatControl = data => {
-    let nameArray = [];
-    nameArray = this.state.contacts.find(cur => cur.name);
-    if (!nameArray.includes(data.name)) {
-      let arrayCont = [];
-      arrayCont = [
-        ...this.state.contacts,
-        { id: nanoid(), name: data.name, number: data.number },
-      ];
-      return this.setState({ ...this.state, contacts: arrayCont });
-    } else {
-      alert(` ${data.name} is already in contacts.`);
-    }
+    this.state.contacts.find(contact => contact.name === data.name)
+      ? alert(` ${data.name} is already in contacts. `)
+      : this.setState(prevState => {
+          return {
+            contacts: [...prevState.contacts, data],
+          };
+        });
   };
 
   elementDelete = (arr, idContact) => {
