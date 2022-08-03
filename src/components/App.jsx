@@ -21,7 +21,7 @@ export class App extends Component {
 
   repeatControl = data => {
     let nameArray = [];
-    nameArray = this.state.contacts.map(cur => cur.name);
+    nameArray = this.state.contacts.find(cur => cur.name);
     if (!nameArray.includes(data.name)) {
       let arrayCont = [];
       arrayCont = [
@@ -35,8 +35,7 @@ export class App extends Component {
   };
 
   elementDelete = (arr, idContact) => {
-    let newArr = arr.filter(elem => elem.id !== idContact);
-    return newArr;
+    return arr.filter(elem => elem.id !== idContact);
   };
 
   deleteContactFromContactList = idContact => {
